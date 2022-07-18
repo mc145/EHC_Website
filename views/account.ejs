@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<head>
+    <title>EHC Home Page</title> 
+    <link rel="stylesheet" href="public/css/account.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display&display=swap" rel="stylesheet">
+</head> 
+
+<body> 
+
+    <div class="navbar">
+        <ul>
+            <li id="home-navbar"> <a id="home-link" href="/"> Home </a> </li>
+            <li> <a href="#"> About </a> </li>
+            <li> <a href="/challenges"> Challenges </a> </li>
+            <li> <a id="logout-link" href="#">Logout</a> </li> 
+           
+        </ul> 
+
+        <h1 id="title-navbar"> Welcome to EHC's Official Website! </h1>
+
+        <img id="logo" src="public/assets/logo.png"> 
+        <a href="/account" id="account-link"> <img id="account" src="public/assets/account.png"> </a>
+    </div> 
+
+    
+
+
+
+
+    <script>
+        let email = '<%- JSON.stringify(email) %>'
+        let titleNavbar = document.getElementById('title-navbar'); 
+        let username = email.split('@')[0]; 
+        username = username.split('"')[1]; 
+        titleNavbar.innerHTML = `${username}'s Account Settings`; 
+    </script> 
+
+    <script src="public/js/account.js"> </script> 
+    <script src="public/js/logout.js"></script> 
+
+
+</body>
+
+
+
+
+
+</html>

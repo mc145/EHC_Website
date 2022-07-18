@@ -1,0 +1,121 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<head>
+    <title>EHC Home Page</title> 
+    <link rel="stylesheet" href="public/css/challenges.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display&display=swap" rel="stylesheet">
+</head> 
+
+<body> 
+
+    <div class="navbar">
+        <ul>
+            <li id="home-navbar"> <a id="home-link" href="/"> Home </a> </li>
+            <li> <a href="#"> About </a> </li>
+            <li> <a id="challenges-link" href="/challenges"> Challenges </a> </li>
+            <li> <a id="logout-link" href="#">Logout</a> </li> 
+           
+        </ul> 
+
+        <h1 id="title-navbar"> EHC's Weekly Challenges </h1>
+
+        <img id="logo" src="public/assets/logo.png"> 
+        <a href="/account" id="account-link"> <img id="account" src="public/assets/account.png"> </a>
+    </div> 
+
+
+  
+
+
+    <script>
+
+    var challenges = <%- JSON.stringify(data) %>; 
+    let allChallenges = []; 
+    
+   for(let i = 0; i<challenges.length; i++){
+        let newDiv = document.createElement('div'); 
+        let title = document.createElement('p'); 
+        let heading = document.createElement('p'); 
+        let description = document.createElement('p'); 
+        title.innerHTML = challenges[i].title; 
+        heading.innerHTML = challenges[i].label; 
+        description.innerHTML = challenges[i].description; 
+
+
+
+        
+        newDiv.insertBefore(title, newDiv.children[0]);
+        newDiv.insertBefore(heading, newDiv.children[1]); 
+        
+        //newDiv.insertBefore(description, newDiv.children[2]); 
+      // description.style.opacity = '0%'; 
+
+        newDiv.style.position = 'absolute'; 
+        newDiv.style.width = '16.56vw'; 
+        newDiv.style.height = '19.44vw'; 
+        newDiv.style.backgroundColor = '#f5f5f5'; 
+        newDiv.style.borderRadius = '10px'; 
+        newDiv.style.border = 'solid 0.5px black'; 
+        let topMargin = 100 + 330 * (Math.floor(i/5)); 
+        let leftMargin = 50 + 290 * (i%5); 
+        newDiv.style.left = `${leftMargin}px`; 
+        newDiv.style.top = `${topMargin}px`; 
+        newDiv.style.textAlign = 'center'; 
+       
+        
+
+        title.style.color = 'black'; 
+        title.style.fontWeight = 'bold'; 
+        title.style.fontSize = '1.3em'; 
+        title.style.marginTop = '10px'; 
+        title.style.textAlign = 'center'; 
+        title.style.fontFamily = `'Playfair Display', serif`; 
+        
+
+        heading.style.color = 'black'; 
+        heading.style.marginTop = '5px'; 
+        heading.style.textAlign = 'center'; 
+        heading.style.fontSize = '1.1em'; 
+        heading.style.fontFamily = `'Playfair Display', serif`; 
+
+
+        let imgLogo = document.createElement("img"); 
+        imgLogo.src = "public/assets/hacking-logo.png"; 
+        imgLogo.style.position = 'relative'; 
+        imgLogo.style.top = '8px';
+        imgLogo.style.left = '3px';
+        // imgLogo.style.width = "190px";
+        // imgLogo.style.position = "absolute";  
+
+        newDiv.insertBefore(imgLogo, newDiv.children[3]); 
+       
+
+
+        document.body.appendChild(newDiv);
+
+        allChallenges.push(newDiv); 
+   }
+
+   
+
+
+   console.log(allChallenges[2]); 
+    
+    </script> 
+
+
+    <script src="public/js/challenges.js"> </script>
+    <script src="public/js/logout.js"></script> 
+
+
+</body>
+
+
+
+
+
+</html>
