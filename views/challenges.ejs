@@ -42,6 +42,10 @@
         <input type="text" id="flag-input" name="flag-input">
         <input id="submit" type="submit" value="Submit!"> 
 
+        <div class="response-container">
+        <p id="response">Correct Answer!</p> 
+        </div>
+
     </div> 
 
 
@@ -126,7 +130,7 @@
    }
 
 
-   
+   let curId; 
 
    function showChallenge(id, title, heading, description){
         
@@ -141,7 +145,10 @@
 
         descriptionClass.style.zIndex = '10';  
         descriptionClass.style.opacity = '100%'; 
+
+        curId = id; 
     }
+    
    
     let cross = document.getElementById('cross'); 
    
@@ -152,6 +159,44 @@
     }, false); 
 
 
+
+    let submitFlag = document.getElementById('submit'); 
+    let flagInput = document.getElementById('flag-input'); 
+
+    submitFlag.addEventListener('click', function(){
+        let flagGuess = flagInput.value.toString(); 
+        let challengeID = curId; 
+        flagInput.value = ""; 
+        let dataToSend = {
+            'flagGuess': flagGuess,
+            'id': challengeID
+        }; 
+
+        const xhr = new XMLHttpRequest(); 
+        xhr.open('POST', 'http://localhost:5555/challenges'); 
+        xhr.setRequestHeader('Content-Type', 'application/json'); 
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
+
+        xhr.send(JSON.stringify(dataToSend));
+
+        xhr.onload = () => {
+            let responseData = JSON.parse(xhr.responseText); 
+
+            let responseContainer = document.getElementsByClassName('response-container')[0]; 
+            let response = document.getElementById('response');
+            
+            if(responseData.status === 1){
+                responseContainer.style.backgroundColor = 'red'; 
+                response.innerHTML = responseData.message; 
+            }
+            else{
+                responseContainer.style.backgroundColor = 'green'; 
+                response.innerHTML = responseData.message; 
+            }
+            responseContainer.style.opacity = '100%'; 
+            
+        }; 
+    }); 
    
 
     </script> 

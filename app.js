@@ -152,6 +152,36 @@ app.post('/logout', checkAuthenticated, function(req, res, next) {
   });
 
 
+app.post('/challenges', checkAuthenticated, async (req, res) => {
+    let flagGuess = req.body.flagGuess; 
+    let challengeId = req.body.id; 
+
+    if(!authenticateGuess(flagGuess)){
+      return res.json({
+        'status': 1,
+        'message': 'Invalid Flag Type'
+      }); 
+    }
+    else{
+      //lookup flag 
+      let theChallenge = await getFlagFromId(challengeId); 
+
+      if(theChallenge == flagGuess){
+        return res.json({
+          'status': 0,
+          'message': 'Correct!' 
+        }); 
+      }
+      else{
+        return res.json({
+          'status': 1,
+          'message': 'Incorrect Answer'
+        }); 
+      }
+    }
+  }); 
+
+
 app.get('/', (req, res) => {
     if(req.isAuthenticated()){
         res.render('logged');        
@@ -196,6 +226,23 @@ async function getAllChallenges(){
   }
 }
 
+function authenticateGuess(guess){
+    if(guess.substr(0,5) == 'flag{' && guess.substr(guess.length-1, 1) == '}'){
+      return true; 
+    }
+    return false; 
+}
+
+async function getFlagFromId(id){
+  try{
+    let sqla = `SELECT * FROM challenges WHERE ID IS ${id}`; 
+    let rows = await sqlite.all(sqla); 
+
+    return rows[0].flag; 
+  } catch(err){
+      console.log(err); 
+  }
+}
 
 function registrationValidator(email){
     //check if sas email 

@@ -40,7 +40,8 @@ function createTables(newdb){
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title text not null,
         label text not null,
-        description text not null
+        description text not null,
+        flag text not null
     ); `
     ); 
   

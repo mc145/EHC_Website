@@ -147,6 +147,22 @@ div:hover{
     margin-top: 20vh; 
 }
 
+#response{
+    color: white; 
+    margin-top: 25vh; 
+    position: relative; 
+    right: 20px; 
+
+}
+
+.response-container{
+    background-color: green;  
+    width: 170px; 
+    margin-left: 17vw; 
+    text-align: center; 
+    opacity: 0%; 
+}
+
 #submit {
     align-items: center;
     appearance: none;
