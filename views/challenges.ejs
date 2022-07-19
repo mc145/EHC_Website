@@ -29,12 +29,30 @@
 
 
   
+    <div class="challenge-description">
+        <img src="public/assets/cross.png" id="cross"> 
+        <p id="title"> Where's my Food? </p>
+        <p id="label"> File Searching </p>
+        <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+             dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
+             , sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+        
+        <label for="flag" id="flag-label"> Flag (in flag{} form): </label>
+        <input type="text" id="flag-input" name="flag-input">
+        <input id="submit" type="submit" value="Submit!"> 
+
+    </div> 
+
 
 
     <script>
 
+
     var challenges = <%- JSON.stringify(data) %>; 
     let allChallenges = []; 
+
+   
     
    for(let i = 0; i<challenges.length; i++){
         let newDiv = document.createElement('div'); 
@@ -46,10 +64,15 @@
         description.innerHTML = challenges[i].description; 
 
 
+        newDiv.addEventListener('click', function(){
+            showChallenge(challenges[i].id, title.innerHTML, heading.innerHTML, description.innerHTML); 
+        }, false); 
+
 
         
         newDiv.insertBefore(title, newDiv.children[0]);
         newDiv.insertBefore(heading, newDiv.children[1]); 
+
         
         //newDiv.insertBefore(description, newDiv.children[2]); 
       // description.style.opacity = '0%'; 
@@ -64,6 +87,7 @@
         let leftMargin = 50 + 290 * (i%5); 
         newDiv.style.left = `${leftMargin}px`; 
         newDiv.style.top = `${topMargin}px`; 
+        newDiv.style.zIndex = '-1'; 
         newDiv.style.textAlign = 'center'; 
        
         
@@ -88,25 +112,49 @@
         imgLogo.style.position = 'relative'; 
         imgLogo.style.top = '8px';
         imgLogo.style.left = '3px';
-        // imgLogo.style.width = "190px";
-        // imgLogo.style.position = "absolute";  
+        
+     
 
         newDiv.insertBefore(imgLogo, newDiv.children[3]); 
        
-
+     
 
         document.body.appendChild(newDiv);
+
 
         allChallenges.push(newDiv); 
    }
 
+
    
 
+   function showChallenge(id, title, heading, description){
+        
+        let descriptionClass = document.getElementsByClassName('challenge-description')[0]; 
+        let challengeTitle = document.getElementById('title'); 
+        let challengeLabel = document.getElementById('label'); 
+        let challengeDescription = document.getElementById('description'); 
 
-   console.log(allChallenges[2]); 
-    
+        challengeTitle.innerHTML = title; 
+        challengeLabel.innerHTML = heading; 
+        challengeDescription.innerHTML = description; 
+
+        descriptionClass.style.zIndex = '10';  
+        descriptionClass.style.opacity = '100%'; 
+    }
+   
+    let cross = document.getElementById('cross'); 
+   
+    cross.addEventListener('click', function(){
+        let descriptionClass = document.getElementsByClassName('challenge-description')[0]; 
+        descriptionClass.style.zIndex = '-5'; 
+        descriptionClass.style.opacity = '0%'; 
+    }, false); 
+
+
+   
+
     </script> 
-
 
     <script src="public/js/challenges.js"> </script>
     <script src="public/js/logout.js"></script> 
