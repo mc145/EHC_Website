@@ -203,6 +203,17 @@ app.get('/', (req, res) => {
     }
 }); 
 
+app.get('/leaderboard', async (req, res) => {
+    let usersForLeaderboard = await findAllUsers(); 
+
+    if(req.isAuthenticated()){
+      res.render('logged_leaderboard', {data: usersForLeaderboard}); 
+    }
+    else{
+      res.render('leaderboard'); 
+    }
+}); 
+
 app.get('/challenges', checkAuthenticated, async (req, res) => {
     let allChallenges = await getAllChallenges(); 
     let userSolves = await allUserSolves(req.user.id); 
@@ -239,6 +250,26 @@ async function addSolve(user, challenge){
     return; 
   }catch(err){
     console.log(err); 
+  }
+}
+
+async function findAllUsers(){
+  try{
+    let sqla = `SELECT * FROM users`; 
+    let rows = await sqlite.all(sqla); 
+    let userData = []; 
+    
+    for(let i = 0; i < rows.length; i++){
+      let userName = rows[i].email.split('@')[0]; 
+      let temp = {
+        'username': userName, 
+        'score': rows[i].score
+      }; 
+      userData.push(temp); 
+    }
+    return userData; 
+  }catch(err){
+    console.log(err) 
   }
 }
 

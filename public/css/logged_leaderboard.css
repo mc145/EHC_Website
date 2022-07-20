@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body{
+     /* background-color: #2e323b;*/ 
+
+     background-color: white; 
+}
+
+.navbar{
+    margin-top: 0; 
+    background-color: #2e323b; 
+    padding: 0; 
+    height: 60px; 
+}
+
+
+ul > li {
+    display: inline-block; 
+}
+
+li{
+    margin-top: 20px;
+}
+
+a{
+    margin-right: 1.8vw;
+    font-size: 1.1em; 
+    color: white; 
+    text-decoration-style: none; 
+    text-decoration: none; 
+    font-family: 'Playfair Display', serif;
+}
+
+a:hover{
+    color: rgb(226, 220, 220); 
+}
+
+#home-navbar{
+    margin-left: 30px; 
+    
+}
+
+#logged-leaderboard-link{
+    color: rgb(231, 225, 225); 
+}
+
+
+#logo{
+    position: absolute; 
+    right: 50px; 
+    top: 0px; 
+    width: 5%; 
+}
+
+#account{
+    position: absolute; 
+    top: 3px; 
+    right: 110px; 
+    width: 6%; 
+}
+
+
+#title-navbar{
+    color: white; 
+    font-weight: lighter; 
+    text-align: center; 
+    font-size: 1.5em;
+    margin-top: -27px;
+    font-family: 'Playfair Display', serif; 
+}
+
+
+/* .entry1 > p{
+    display: inline-block; 
+    color: white; 
+}
+#entry1-rank{
+    margin-left: 50px; 
+}
+
+#entry1-user{
+    position: absolute; 
+    left: 40vw; 
+}
+
+#entry2-user{
+    position: absolute; 
+    left: 40vw; 
+}
+#entry1-points{
+    position: absolute; 
+    right: 29vw; 
+}
+
+#entry2-points{
+    position: absolute; 
+    right: 29vw; 
+}
+.entry1{
+    width: 50vw; 
+    margin: auto; 
+    background-color: rgb(7, 24, 86); 
+    height: 40px; 
+    line-height: 40px; 
+}
+
+.entry2 > p{
+    display: inline-block; 
+    color: white; 
+}
+#entry2-rank{
+    margin-left: 50px; 
+}
+.entry2{
+    width: 50vw; 
+    margin: auto; 
+    background-color: rgb(9,34,122); 
+    height: 40px; 
+    line-height: 40px; 
+} */
+
+.leaderboard-container{
+    width: 50vw;
+    background-color: white; 
+    height: 90vh; 
+    margin: auto; 
+    z-index: -2;
+    margin-top: 5px; 
+}
+

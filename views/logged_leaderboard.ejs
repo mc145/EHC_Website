@@ -1,0 +1,118 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<head>
+    <title>Leaderboard</title> 
+    <link rel="stylesheet" href="public/css/logged_leaderboard.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display&display=swap" rel="stylesheet">
+</head> 
+
+<body> 
+
+    <div class="navbar">
+        <ul>
+            <li id="home-navbar"> <a id="home-link" href="/"> Home </a> </li>
+            <li> <a href="#"> About </a> </li>
+            <li> <a href="/challenges"> Challenges </a> </li>
+            <li> <a  id="logged-leaderboard-link" href="/leaderboard"> Leaderboard </a> </li>
+            <li> <a id="logout-link" href="#">Logout</a> </li> 
+           
+        </ul> 
+
+        <h1 id="title-navbar"> Welcome to EHC's Official Website! </h1>
+
+        <img id="logo" src="public/assets/logo.png"> 
+        <a href="/account" id="account-link"> <img id="account" src="public/assets/account.png"> </a>
+    </div> 
+
+
+    <div class="leaderboard-container">
+
+        <!-- <div class="entry1">
+            <p id="entry1-rank">1</p> 
+            <p id="entry1-user">agarwal45366</p>
+            <p id="entry1-points">560</p>  
+        </div> 
+
+        <div class="entry2">
+            <p id="entry2-rank">21</p> 
+            <p id="entry2-user">bla34349</p>
+            <p id="entry2-points">480</p>  
+        </div>  -->
+    </div> 
+
+    <script> 
+
+    var userInfo = <%- JSON.stringify(data) %>; 
+
+    for(let i = 0; i<userInfo.length-1; i++){
+        for(let j = i+1; j<userInfo.length; j++){
+            
+            if(userInfo[i].score < userInfo[j].score){
+                let temp1 = userInfo[i]; 
+                let temp2 = userInfo[j]; 
+                userInfo[i] = temp2; 
+                userInfo[j] = temp1; 
+            }
+        }
+    }
+
+    let leaderboardContainer = document.getElementsByClassName('leaderboard-container')[0]; 
+    for(let i = userInfo.length-1;i>=0; i--){
+        let newEntry = document.createElement('div'); 
+        let rank = document.createElement('p'); 
+        let user = document.createElement('p'); 
+        let points = document.createElement('p'); 
+        rank.innerHTML = `${i+1}`; 
+        user.innerHTML = userInfo[i].username; 
+        points.innerHTML = userInfo[i].score; 
+
+        newEntry.insertBefore(rank, newEntry.children[0]); 
+        newEntry.insertBefore(user, newEntry.children[1]); 
+        newEntry.insertBefore(points, newEntry.children[2]); 
+
+        newEntry.style.width = '50vw'; 
+        newEntry.style.margin = 'auto'; 
+        if(i%2 == 1){
+            newEntry.style.backgroundColor = 'rgb(7,24,86)'; 
+        }
+        else{
+            newEntry.style.backgroundColor = 'rgb(9,34,122)';             
+        }
+        newEntry.style.height = `40px`;
+        newEntry.style.lineHeight = '40px'; 
+        
+
+        rank.style.display = 'inline-block'; 
+        rank.style.color = 'white'; 
+        rank.style.marginLeft = '50px'; 
+        
+        user.style.display = 'inline-block'; 
+        user.style.color = 'white'; 
+        user.style.position = 'absolute'; 
+        user.style.left = '40vw'; 
+
+        points.style.display = 'inline-block'; 
+        points.style.color = 'white'; 
+        points.style.position = 'absolute'; 
+        points.style.right = '29vw'; 
+
+        leaderboardContainer.insertBefore(newEntry, leaderboardContainer.children[0]); 
+
+       // document.body.appendChild(newEntry); 
+
+    }
+    </script> 
+    <script src="public/js/logout.js"></script> 
+
+
+</body>
+
+
+
+
+
+</html>
