@@ -204,6 +204,15 @@ app.get('/', (req, res) => {
     }
 }); 
 
+app.get('/about', (req, res) => {
+    if(req.isAuthenticated()){
+      res.render('logged_about'); 
+    }
+    else{
+      res.render('about'); 
+    }
+}); 
+
 app.get('/leaderboard', async (req, res) => {
     let usersForLeaderboard = await findAllUsers(); 
     
