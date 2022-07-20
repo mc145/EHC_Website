@@ -31,22 +31,14 @@
 
     <div class="leaderboard-container">
 
-        <!-- <div class="entry1">
-            <p id="entry1-rank">1</p> 
-            <p id="entry1-user">agarwal45366</p>
-            <p id="entry1-points">560</p>  
-        </div> 
-
-        <div class="entry2">
-            <p id="entry2-rank">21</p> 
-            <p id="entry2-user">bla34349</p>
-            <p id="entry2-points">480</p>  
-        </div>  -->
+       
     </div> 
 
     <script> 
 
     var userInfo = <%- JSON.stringify(data) %>; 
+    let username = userInfo.you.split('@')[0]; 
+    userInfo = userInfo.users; 
 
     for(let i = 0; i<userInfo.length-1; i++){
         for(let j = i+1; j<userInfo.length; j++){
@@ -90,8 +82,13 @@
         rank.style.color = 'white'; 
         rank.style.marginLeft = '50px'; 
         
-        user.style.display = 'inline-block'; 
-        user.style.color = 'white'; 
+        user.style.display = 'inline-block';
+        if(userInfo[i].username == username){
+            user.style.color = 'lightgreen'; 
+        } 
+        else{
+            user.style.color = 'white'; 
+        }
         user.style.position = 'absolute'; 
         user.style.left = '40vw'; 
 

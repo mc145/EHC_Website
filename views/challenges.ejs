@@ -59,7 +59,7 @@
     challenges = challenges.allChallenges;  
     let allChallenges = []; 
 
-   
+    let solvedBefore; 
     
    for(let i = 0; i<challenges.length; i++){
         let newDiv = document.createElement('div'); 
@@ -132,8 +132,8 @@
        
      
 
+        solvedBefore = false; 
 
-        let solvedBefore = false; 
 
         for(let j = 0; j<allSolves.length; j++){
             if(allSolves[j].challengeID === challenges[i].id){
@@ -230,6 +230,18 @@
             else{
                 responseContainer.style.backgroundColor = 'green'; 
                 response.innerHTML = responseData.message; 
+                
+                let rightChallenge = allChallenges[responseData.id-1];
+
+                let diag = document.createElement('img'); 
+                diag.src = "public/assets/diag.png"; 
+                diag.style.width = '90%'; 
+                diag.style.zIndex = '50'; 
+                diag.style.position = 'relative'; 
+                diag.style.bottom = '240px'; 
+            
+                rightChallenge.insertBefore(diag, rightChallenge.children[5]);
+
             }
             responseContainer.style.opacity = '100%'; 
             

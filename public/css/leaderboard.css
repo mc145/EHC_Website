@@ -70,3 +70,13 @@ a:hover{
     margin-top: -27px;
     font-family: 'Playfair Display', serif; 
 }
+
+.leaderboard-container{
+    width: 50vw;
+    background-color: white; 
+    height: 90vh; 
+    margin: auto; 
+    z-index: -2;
+    margin-top: 5px; 
+}
+

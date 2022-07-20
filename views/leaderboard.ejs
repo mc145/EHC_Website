@@ -26,6 +26,73 @@
         <img id="logo" src="public/assets/logo.png"> 
     </div> 
 
+    <div class="leaderboard-container">
+
+       
+    </div> 
+
+    <script> 
+
+    var userInfo = <%- JSON.stringify(data) %>; 
+
+    for(let i = 0; i<userInfo.length-1; i++){
+        for(let j = i+1; j<userInfo.length; j++){
+            
+            if(userInfo[i].score < userInfo[j].score){
+                let temp1 = userInfo[i]; 
+                let temp2 = userInfo[j]; 
+                userInfo[i] = temp2; 
+                userInfo[j] = temp1; 
+            }
+        }
+    }
+
+    let leaderboardContainer = document.getElementsByClassName('leaderboard-container')[0]; 
+    for(let i = userInfo.length-1;i>=0; i--){
+        let newEntry = document.createElement('div'); 
+        let rank = document.createElement('p'); 
+        let user = document.createElement('p'); 
+        let points = document.createElement('p'); 
+        rank.innerHTML = `${i+1}`; 
+        user.innerHTML = userInfo[i].username; 
+        points.innerHTML = userInfo[i].score; 
+
+        newEntry.insertBefore(rank, newEntry.children[0]); 
+        newEntry.insertBefore(user, newEntry.children[1]); 
+        newEntry.insertBefore(points, newEntry.children[2]); 
+
+        newEntry.style.width = '50vw'; 
+        newEntry.style.margin = 'auto'; 
+        if(i%2 == 1){
+            newEntry.style.backgroundColor = 'rgb(7,24,86)'; 
+        }
+        else{
+            newEntry.style.backgroundColor = 'rgb(9,34,122)';             
+        }
+        newEntry.style.height = `40px`;
+        newEntry.style.lineHeight = '40px'; 
+        
+
+        rank.style.display = 'inline-block'; 
+        rank.style.color = 'white'; 
+        rank.style.marginLeft = '50px'; 
+        
+        user.style.display = 'inline-block'; 
+        user.style.color = 'white'; 
+        user.style.position = 'absolute'; 
+        user.style.left = '40vw'; 
+
+        points.style.display = 'inline-block'; 
+        points.style.color = 'white'; 
+        points.style.position = 'absolute'; 
+        points.style.right = '29vw'; 
+
+        leaderboardContainer.insertBefore(newEntry, leaderboardContainer.children[0]); 
+
+       // document.body.appendChild(newEntry); 
+
+    }
+    </script> 
 </body>
 
 

@@ -180,7 +180,8 @@ app.post('/challenges', checkAuthenticated, async (req, res) => {
        
         return res.json({
           'status': 0,
-          'message': 'Correct!' 
+          'message': 'Correct!',
+          'id': challengeId
         }); 
       }
       else{
@@ -205,12 +206,18 @@ app.get('/', (req, res) => {
 
 app.get('/leaderboard', async (req, res) => {
     let usersForLeaderboard = await findAllUsers(); 
+    
+   
 
     if(req.isAuthenticated()){
-      res.render('logged_leaderboard', {data: usersForLeaderboard}); 
+      let data = {
+        'users': usersForLeaderboard,
+        'you': req.user.email
+      };
+      res.render('logged_leaderboard', {data: data}); 
     }
     else{
-      res.render('leaderboard'); 
+      res.render('leaderboard', {data: usersForLeaderboard}); 
     }
 }); 
 
