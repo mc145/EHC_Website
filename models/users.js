@@ -31,7 +31,8 @@ function createTables(newdb){
     create table users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email text not null,
-        password text not null
+        password text not null,
+        score INTEGER 
     ); `
     ); 
 
@@ -41,8 +42,16 @@ function createTables(newdb){
         title text not null,
         label text not null,
         description text not null,
-        flag text not null
+        flag text not null,
+        point INTEGER
     ); `
     ); 
   
+    newdb.exec(`
+    create table solves(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        userId INTEGER,
+        challengeID INTEGER
+    ); `
+    ); 
 }

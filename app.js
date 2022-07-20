@@ -124,9 +124,9 @@ app.post('/auth/register', checkNotAuthenticated, async (req, res) => {
 
        // res.redirect('/login')
 
-       let insertUser = `INSERT INTO users(email, password) VALUES (?,?)`; 
+       let insertUser = `INSERT INTO users(email, password,score) VALUES (?,?,?)`; 
 
-       db.run(insertUser, [req.body.email, hashedPassword], (err) =>{
+       db.run(insertUser, [req.body.email, hashedPassword,0], (err) =>{
           if(err){
             return console.log(err.message); 
           }
@@ -162,11 +162,22 @@ app.post('/challenges', checkAuthenticated, async (req, res) => {
         'message': 'Invalid Flag Type'
       }); 
     }
+    else if(await solvedBefore(req.user.id, challengeId)){
+      return res.json({
+        'status': 1, 
+        'message': 'Challenge Solved Before'
+      }); 
+    }
     else{
       //lookup flag 
       let theChallenge = await getFlagFromId(challengeId); 
 
-      if(theChallenge == flagGuess){
+      if(theChallenge.flag == flagGuess){
+        addScore(req.user.email, req.user.score, req.user.id, theChallenge.point); 
+       // console.log(req.user.email, req.user.score, challengeId, theChallenge.point);
+        
+       addSolve(req.user.id, theChallenge.id); 
+       
         return res.json({
           'status': 0,
           'message': 'Correct!' 
@@ -194,15 +205,20 @@ app.get('/', (req, res) => {
 
 app.get('/challenges', checkAuthenticated, async (req, res) => {
     let allChallenges = await getAllChallenges(); 
+    let userSolves = await allUserSolves(req.user.id); 
+    let data = {
+      'allChallenges': allChallenges, 
+      'userSolves': userSolves
+    };
 
-    res.render('challenges', {data: allChallenges}); 
+    res.render('challenges', {data: data}); 
 }); 
 
 
 
 app.get('/account', checkAuthenticated, (req, res) => {
    
-   res.render('account', {email: req.user.email}); 
+   res.render('account', {user: req.user}); 
 }); 
 
 
@@ -214,6 +230,54 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register'); 
 }); 
+
+
+async function addSolve(user, challenge){
+  try{
+    let sqla = `INSERT INTO solves(userId, challengeID) VALUES(${user}, ${challenge})`
+    await sqlite.run(sqla); 
+    return; 
+  }catch(err){
+    console.log(err); 
+  }
+}
+
+async function solvedBefore(user, challenge){
+  try{
+    let sqla = `SELECT * FROM solves WHERE userId IS ${user} AND challengeID IS ${challenge}`
+    let rows = await sqlite.all(sqla); 
+
+   // console.log(rows, rows.length); 
+
+    if(rows.length == 0){
+      return false; 
+    }
+    return true; 
+  } catch(err){
+    console.log(err); 
+  }
+}
+
+async function allUserSolves(user){
+  try{
+    let sqla = `SELECT * FROM solves WHERE userId is ${user}`; 
+    let rows = await sqlite.all(sqla);
+    return rows; 
+  } catch(err){
+    console.log(err); 
+  }
+}
+
+async function addScore(email, score, id, point){
+
+  try{
+    let sqla = `UPDATE users SET score = ${score+point} WHERE id = ${id}`; 
+    await sqlite.all(sqla); 
+    return; 
+  }catch(err){
+    console.log(err); 
+  }
+}
 
 async function getAllChallenges(){
   try{
@@ -238,7 +302,7 @@ async function getFlagFromId(id){
     let sqla = `SELECT * FROM challenges WHERE ID IS ${id}`; 
     let rows = await sqlite.all(sqla); 
 
-    return rows[0].flag; 
+    return rows[0]; 
   } catch(err){
       console.log(err); 
   }

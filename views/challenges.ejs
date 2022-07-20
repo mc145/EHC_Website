@@ -54,6 +54,8 @@
 
 
     var challenges = <%- JSON.stringify(data) %>; 
+    let allSolves = challenges.userSolves; 
+    challenges = challenges.allChallenges;  
     let allChallenges = []; 
 
    
@@ -63,15 +65,15 @@
         let title = document.createElement('p'); 
         let heading = document.createElement('p'); 
         let description = document.createElement('p'); 
+        let point = document.createElement('p'); 
+
         title.innerHTML = challenges[i].title; 
         heading.innerHTML = challenges[i].label; 
         description.innerHTML = challenges[i].description; 
+        point.innerHTML = challenges[i].point; 
 
 
-        newDiv.addEventListener('click', function(){
-            showChallenge(challenges[i].id, title.innerHTML, heading.innerHTML, description.innerHTML); 
-        }, false); 
-
+        
 
         
         newDiv.insertBefore(title, newDiv.children[0]);
@@ -80,6 +82,10 @@
         
         //newDiv.insertBefore(description, newDiv.children[2]); 
       // description.style.opacity = '0%'; 
+
+        point.style.fontSize = '1.2em'; 
+        point.style.fontFamily = 'Times New Roman'; 
+        point.style.marginTop = '10px';
 
         newDiv.style.position = 'absolute'; 
         newDiv.style.width = '16.56vw'; 
@@ -120,10 +126,39 @@
      
 
         newDiv.insertBefore(imgLogo, newDiv.children[3]); 
+
+        newDiv.insertBefore(point, newDiv.children[4]); 
        
      
 
-        document.body.appendChild(newDiv);
+
+        let solvedBefore = false; 
+
+        for(let j = 0; j<allSolves.length; j++){
+            if(allSolves[j].challengeID === challenges[i].id){
+                solvedBefore = true; 
+                break; 
+            }
+        }
+
+        if(solvedBefore){
+            let diag = document.createElement('img'); 
+            diag.src = "public/assets/diag.png"; 
+            diag.style.width = '90%'; 
+            diag.style.zIndex = '50'; 
+            diag.style.position = 'relative'; 
+            diag.style.bottom = '240px'; 
+            
+            newDiv.insertBefore(diag, newDiv.children[5]); 
+        }
+        else{
+            newDiv.addEventListener('click', function(){
+                showChallenge(challenges[i].id, title.innerHTML, heading.innerHTML, description.innerHTML); 
+            }, false); 
+         }
+
+         document.body.appendChild(newDiv);
+
 
 
         allChallenges.push(newDiv); 
@@ -154,8 +189,10 @@
    
     cross.addEventListener('click', function(){
         let descriptionClass = document.getElementsByClassName('challenge-description')[0]; 
+        let responseContainer = document.getElementsByClassName('response-container')[0]; 
         descriptionClass.style.zIndex = '-5'; 
         descriptionClass.style.opacity = '0%'; 
+        responseContainer.style.opacity = '0%'; 
     }, false); 
 
 
@@ -168,7 +205,7 @@
         let challengeID = curId; 
         flagInput.value = ""; 
         let dataToSend = {
-            'flagGuess': flagGuess,
+            'flagGuess': flagGuess.trim(),
             'id': challengeID
         }; 
 
@@ -197,6 +234,8 @@
             
         }; 
     }); 
+
+    // Create new table in db "solves" with userID and challengeID cols, create ui so that each solve only gets registered once
    
 
     </script> 

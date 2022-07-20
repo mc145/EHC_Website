@@ -26,6 +26,10 @@
         <img id="logo" src="public/assets/logo.png"> 
         <a href="/account" id="account-link"> <img id="account" src="public/assets/account.png"> </a>
     </div> 
+    
+    <div class="settings">
+        <h1> Score is <%=user.score%> </h1>
+    </div> 
 
     
 
@@ -33,11 +37,13 @@
 
 
     <script>
-        let email = '<%- JSON.stringify(email) %>'
+        let email = '<%- JSON.stringify(user.email) %>'
         let titleNavbar = document.getElementById('title-navbar'); 
         let username = email.split('@')[0]; 
         username = username.split('"')[1]; 
-        titleNavbar.innerHTML = `${username}'s Account Settings`; 
+        titleNavbar.innerHTML = `${username}'s Account Settings`;
+        
+        
     </script> 
 
     <script src="public/js/account.js"> </script> 
