@@ -224,11 +224,15 @@
             let response = document.getElementById('response');
             
             if(responseData.status === 1){
-                responseContainer.style.backgroundColor = 'red'; 
+               // responseContainer.style.backgroundColor = 'red';
+                responseContainer.style.backgroundColor = '#070750';  
+                response.style.color = 'red'; 
+                response.style.fontWeight = 'bold'; 
                 response.innerHTML = responseData.message; 
             }
             else{
-                responseContainer.style.backgroundColor = 'green'; 
+               // responseContainer.style.backgroundColor = 'green'; 
+                response.style.color = 'rgb(133,249,133)'; 
                 response.innerHTML = responseData.message; 
                 
                 let rightChallenge = allChallenges[responseData.id-1];

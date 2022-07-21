@@ -112,6 +112,13 @@ app.post('/auth/register', checkNotAuthenticated, async (req, res) => {
         "message": "Invalid Email"
       }); 
     }
+    let ifUserThere = await userExistsYes(req.body.email); 
+    if(ifUserThere){
+      return res.json({
+        "status": 1,
+        "message": 'Email already signed up'
+      }); 
+    }
     else{
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -258,6 +265,20 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register'); 
 }); 
 
+async function userExistsYes(email){
+  try{
+    let sqla = `SELECT * FROM users WHERE email IS '${email}'`; 
+    let rows = await sqlite.all(sqla); 
+
+
+    if(rows.length == 0){
+      return false; 
+    }
+    return true; 
+  } catch(err){
+
+  }
+}
 
 async function addSolve(user, challenge){
   try{

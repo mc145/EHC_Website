@@ -137,23 +137,24 @@ a:hover{
 
 
 .error-container{
-    background-color: red; 
-    width: 30vw; 
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    margin-top: -70px;
-    opacity: 0%
-}
-
-
-#error-message{
-    text-align: center; 
-    color: white; 
-    text-decoration-style: none; 
-    text-decoration: none; 
-    font-family: 'Playfair Display', serif;
-    
-}
-
+    /*  background-color: red; */
+      width: 12vw; 
+      position: fixed; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      margin-top: -70px;
+      opacity: 0%;
+      height: 40px; 
+      line-height: 40px; 
+  }
+  
+  
+  #error-message{
+      text-align: center; 
+      color: red; 
+      text-decoration-style: none; 
+      text-decoration: none; 
+      font-family: 'Playfair Display', serif;
+      
+  }
