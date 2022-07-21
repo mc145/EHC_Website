@@ -80,7 +80,7 @@ async function userById(id){
 
 
 
-const PORT = process.env.PORT || 5555; 
+const PORT = process.env.PORT || 5000; 
 
 
 
@@ -140,7 +140,7 @@ app.post('/auth/register', checkNotAuthenticated, async (req, res) => {
 
        }); 
 
-       res.json("http://localhost:5555/login"); 
+       res.json(`http://localhost:${PORT}/login`); 
       } catch {
         res.redirect('/register')
       }

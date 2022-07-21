@@ -4,7 +4,7 @@ let errorDiv = document.getElementsByClassName('error-container')[0];
 let errorMessage = document.getElementById('error-message'); 
 
 
-const API_URL = 'http://localhost:5555/auth/login'; 
+const API_URL = 'http://localhost:5000/auth/login'; 
 
 loginForm.addEventListener('submit', (event) =>{
     event.preventDefault(); 

@@ -4,7 +4,7 @@ let errorDiv = document.getElementsByClassName('error-container')[0];
 let errorMessage = document.getElementById('error-message'); 
 
 
-const API_URL = 'http://localhost:5555/auth/register'; 
+const API_URL = 'http://localhost:5000/auth/register'; 
 
 registerForm.addEventListener('submit', (event) =>{
     event.preventDefault(); 

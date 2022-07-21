@@ -9,7 +9,7 @@ function myHandler(e){
 
 
     const xhr = new XMLHttpRequest(); 
-    xhr.open('POST', 'http://localhost:5555/logout'); 
+    xhr.open('POST', 'http://localhost:5000/logout'); 
 
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
