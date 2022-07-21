@@ -266,7 +266,7 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 }); 
 
 async function userExistsYes(email){
-  try{
+  try{  
     let sqla = `SELECT * FROM users WHERE email IS '${email}'`; 
     let rows = await sqlite.all(sqla); 
 
