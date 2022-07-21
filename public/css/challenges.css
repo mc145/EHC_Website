@@ -148,6 +148,7 @@ div:hover{
     margin-top: 20vh; 
     font-family: 'Arial'; 
     padding-left: 10px; 
+    height: 30px; 
 }
 
 #response{
@@ -178,7 +179,7 @@ div:hover{
     cursor: pointer;
     display: inline-flex;
     font-family: "JetBrains Mono",monospace;
-    height: 20px;
+    height: 25px;
     justify-content: center;
     line-height: 1;
     list-style: none;
@@ -197,7 +198,7 @@ div:hover{
     font-size: 18px;
     width: 10%; 
     float: left; 
-    margin-top: 20vh; 
+    margin-top: 20.3vh; 
     margin-left: 20px; 
     
   }
