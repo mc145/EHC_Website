@@ -34,7 +34,7 @@ loginForm.addEventListener('submit', (event) =>{
         //window.location.href = JSON.parse(xhr.responseText.toString()); 
         let responseData = JSON.parse(xhr.responseText);
         if(responseData.status === 0){
-            window.location.href = "http://localhost:5555/"; 
+            window.location.href = "http://localhost:5000/"; 
         } 
         else{
             errorMessage.innerHTML = responseData.message; 

@@ -19,7 +19,7 @@ function myHandler(e){
         console.log(xhr.responseText); 
 
         if(JSON.parse(xhr.responseText).status === 0){
-            window.location.href = "http://localhost:5555/login"; 
+            window.location.href = "http://localhost:5000/login"; 
         }
     }; 
     return false; 
